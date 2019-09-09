@@ -18,6 +18,7 @@ public class GyroscopeInput : MonoBehaviour {
 	#region Unity Events
 	void Start() {
 		Input.gyro.updateInterval = updateInterval;
+		Input.gyro.enabled = true;
 	}
 
 	void Update() {

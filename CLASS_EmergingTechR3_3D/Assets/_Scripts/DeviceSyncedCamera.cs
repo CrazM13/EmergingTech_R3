@@ -17,20 +17,32 @@ public class DeviceSyncedCamera : MonoBehaviour {
 	}
 
 	void Update() {
-		transform.position += GetMovement();
+		//transform.position += GetMovement();
 		transform.localRotation = GetRotation();
 	}
 
 	private Vector3 GetMovement() {
-		return Vector3.zero;
+		return accelerometer.GetAcceleration() * Time.deltaTime;
 	}
 
 	private Quaternion GetRotation() {
-		return Quaternion.identity;
+		return Quaternion.Euler(GetDirection() + rotationOffset);
 	}
 
 	private Vector3 GetDirection() {
-		return Vector3.zero;
+
+		Vector3 attitude = gyroscope.GetAttitude();
+		Vector3 eulers = transform.rotation.eulerAngles;
+
+		Vector3 newEulers = attitude + eulers;
+		float angleToVerticle = Vector3.Angle(newEulers, Vector3.up);
+
+		if (!(angleToVerticle < compassDeadzone || angleToVerticle > 180 - compassDeadzone)) {
+			float heading = compass.GetHeading();
+			newEulers = new Vector3(newEulers.x, heading, newEulers.z);
+		}
+
+		return newEulers;
 	}
 
 }

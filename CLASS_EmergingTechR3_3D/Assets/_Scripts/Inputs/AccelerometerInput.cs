@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AccelerometerInput : MonoBehaviour {
 
 	#region Public Variables
 	public float smoothing = 1f;
 	public float deadzoneSensitivity = 1f;
+
+	public Text debug;
 	#endregion
 
 	#region Private Variables
@@ -16,11 +19,17 @@ public class AccelerometerInput : MonoBehaviour {
 
 	#region Unity Events
 	void Update() {
-		if (Input.acceleration.magnitude > deadzoneSensitivity) {
-			lastRawAcceleration = Input.acceleration;
+		Vector3 acceleration = Input.acceleration - Input.gyro.gravity;
+
+		if (Mathf.Abs(acceleration.magnitude) > deadzoneSensitivity) {
+			lastRawAcceleration = acceleration;
+		} else {
+			lastRawAcceleration = Vector3.zero;
 		}
 
 		lastSmoothedAcceleration = Vector3.Lerp(lastSmoothedAcceleration, lastRawAcceleration, Time.deltaTime * smoothing);
+
+		debug.text = $"{acceleration} :: {lastSmoothedAcceleration}";
 
 	}
 	#endregion
