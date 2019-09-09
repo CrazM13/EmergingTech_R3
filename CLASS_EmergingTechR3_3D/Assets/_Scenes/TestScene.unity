@@ -255,8 +255,9 @@ MonoBehaviour:
   gyroscope: {fileID: 969286818}
   compass: {fileID: 969286817}
   compassDeadzone: 30
-  accelerometerSensitivity: 0.001
-  rotationOffset: {x: 0, y: 0, z: 0}
+  accelerometerSensitivity: 10
+  rotationOffset: {x: 90, y: 0, z: 0}
+  debug: {fileID: 1498638642}
 --- !u!114 &969286817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,8 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1e4a9f0847bd34093e87259651c867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothing: 0.5
-  deadzoneSensitivity: 1
+  smoothing: 20
   updateInterval: 0.001
 --- !u!114 &969286819
 MonoBehaviour:
@@ -298,8 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothing: 1
-  deadzoneSensitivity: 0.05
-  debug: {fileID: 1498638642}
+  deadzoneSensitivity: 0.2
 --- !u!4 &969286820
 Transform:
   m_ObjectHideFlags: 0
@@ -308,7 +307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969286815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6791601, y: 0.9780855, z: -0.0054893494}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1688214321}
@@ -570,7 +569,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548800696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6791601, y: 0.9780855, z: -6.86}
+  m_LocalPosition: {x: -1.21, y: 0.4, z: 3.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -653,7 +652,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688214318}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6791601, y: 0.021914482, z: -9.994511}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 969286820}

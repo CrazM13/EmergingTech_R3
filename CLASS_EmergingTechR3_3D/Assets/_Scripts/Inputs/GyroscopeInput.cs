@@ -6,13 +6,12 @@ public class GyroscopeInput : MonoBehaviour {
 
 	#region Public Variables
 	public float smoothing = 1f;
-	public float deadzoneSensitivity = 1f;
 	public float updateInterval = 1f;
 	#endregion
 
 	#region Private Variables
 	private Gyroscope lastGyro = null;
-	private Vector3 lastSmoothedAttitude = Vector3.zero;
+	private Quaternion lastSmoothedAttitude = Quaternion.identity;
 	#endregion
 
 	#region Unity Events
@@ -22,27 +21,26 @@ public class GyroscopeInput : MonoBehaviour {
 	}
 
 	void Update() {
+		lastGyro = Input.gyro;
 
-		if (Input.gyro.rotationRate.magnitude < deadzoneSensitivity) {
-			lastGyro = Input.gyro;
-		}
-
-		lastSmoothedAttitude = Vector3.Lerp(lastSmoothedAttitude, lastGyro.rotationRate, Time.deltaTime * smoothing);
+		lastSmoothedAttitude = Quaternion.Lerp(lastSmoothedAttitude, lastGyro.attitude, Mathf.Clamp01(Time.deltaTime * smoothing));
 	}
 	#endregion
 
 	#region Interface
-	public Vector3 GetAttitude() {
-		return lastSmoothedAttitude;
+	public Quaternion GetAttitude() {
+		return GyroToUnity(lastSmoothedAttitude);
 	}
 
-	public Vector3 GetRawAttitude() {
-		return lastGyro.rotationRate;
+	public Quaternion GetRawAttitude() {
+		return lastGyro != null ? GyroToUnity(lastGyro.attitude) : Quaternion.identity;
 	}
 	#endregion
 
 	#region Helper Methods
-
+	private Quaternion GyroToUnity(Quaternion q) {
+		return new Quaternion(q.x, q.y, -q.z, -q.w);
+	}
 	#endregion
 
 }

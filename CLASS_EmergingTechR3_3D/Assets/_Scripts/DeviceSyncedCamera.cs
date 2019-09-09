@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeviceSyncedCamera : MonoBehaviour {
 
@@ -12,37 +13,44 @@ public class DeviceSyncedCamera : MonoBehaviour {
 	public float accelerometerSensitivity = 1f;
 	public Vector3 rotationOffset = Vector3.zero;
 
+	public Text debug;
+
 	void Start() {
 
 	}
 
 	void Update() {
-		//transform.position += GetMovement();
-		transform.localRotation = GetRotation();
+		//transform.localPosition += GetMovement();
+		transform.rotation = GetRotation();
 	}
 
 	private Vector3 GetMovement() {
-		return accelerometer.GetAcceleration() * Time.deltaTime;
+		debug.text = $"{accelerometer.GetAcceleration()} ::: ";
+		return accelerometer.GetAcceleration() * accelerometerSensitivity * Time.deltaTime;
 	}
 
 	private Quaternion GetRotation() {
-		return Quaternion.Euler(GetDirection() + rotationOffset);
+
+		return GetDirection();
 	}
 
-	private Vector3 GetDirection() {
+	private Quaternion GetDirection() {
 
-		Vector3 attitude = gyroscope.GetAttitude();
-		Vector3 eulers = transform.rotation.eulerAngles;
+		Quaternion attitude = gyroscope.GetAttitude();
+		Vector3 attitudeEulars = attitude.eulerAngles;
+		//attitudeEulars = new Vector3(attitudeEulars.x - 180, (-attitudeEulars.y) + 180, attitudeEulars.z - 180);
 
-		Vector3 newEulers = attitude + eulers;
-		float angleToVerticle = Vector3.Angle(newEulers, Vector3.up);
+		debug.text += $"{attitudeEulars}";
 
-		if (!(angleToVerticle < compassDeadzone || angleToVerticle > 180 - compassDeadzone)) {
-			float heading = compass.GetHeading();
-			newEulers = new Vector3(newEulers.x, heading, newEulers.z);
-		}
+		//float angleToVerticle = Vector3.Angle(attitudeEulars, Vector3.up);
 
-		return newEulers;
+		//if (!(angleToVerticle < compassDeadzone || angleToVerticle > 180 - compassDeadzone)) {
+		//	float heading = compass.GetHeading();
+		//	attitudeEulars = new Vector3(attitudeEulars.x, heading, attitudeEulars.z);
+			//attitude = Quaternion.Euler(attitudeEulars);
+		//}
+
+		return attitude;
 	}
 
 }

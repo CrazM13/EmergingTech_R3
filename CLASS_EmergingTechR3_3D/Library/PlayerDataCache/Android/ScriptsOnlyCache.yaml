@@ -536,7 +536,7 @@ ScriptsOnlyBuild:
     className: AnalyticsTracker
   - hash:
       serializedVersion: 2
-      Hash: 3cb083e44c3b25e6d88ea2310b4cb013
+      Hash: ae6367b8f4f4cc4f251583bd321b2540
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DeviceSyncedCamera
@@ -572,7 +572,7 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
-      Hash: 75cbec9f8ffbd1dfa56141a1d1e26ff2
+      Hash: d12a104e9339623d73eacbe858986987
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AccelerometerInput
@@ -722,7 +722,7 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: 056d4c629665cd6fe7fe7ab0d596def7
+      Hash: 8ab0fe4de7685f5c8747dc189da6e490
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GyroscopeInput

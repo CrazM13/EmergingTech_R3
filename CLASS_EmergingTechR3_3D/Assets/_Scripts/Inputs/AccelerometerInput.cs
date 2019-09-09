@@ -8,8 +8,6 @@ public class AccelerometerInput : MonoBehaviour {
 	#region Public Variables
 	public float smoothing = 1f;
 	public float deadzoneSensitivity = 1f;
-
-	public Text debug;
 	#endregion
 
 	#region Private Variables
@@ -28,9 +26,6 @@ public class AccelerometerInput : MonoBehaviour {
 		}
 
 		lastSmoothedAcceleration = Vector3.Lerp(lastSmoothedAcceleration, lastRawAcceleration, Time.deltaTime * smoothing);
-
-		debug.text = $"{acceleration} :: {lastSmoothedAcceleration}";
-
 	}
 	#endregion
 
